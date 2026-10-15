@@ -1,0 +1,70 @@
+{% extends "base.html" %}{% block title %}Suggestions &middot; SmartCity{% endblock %}{% block content %}
+<div class="panel">
+ <h1>
+  Share an idea
+ </h1>
+ <p>
+  Help the city improve services. You earn 10 points for a submitted suggestion.
+ </p>
+ <form method="post">
+  <div class="field">
+   <label>
+    Suggestion title
+   </label>
+   <input name="title" placeholder="e.g. Add solar-powered bus shelters" required=""/>
+  </div>
+  <div class="field">
+   <label>
+    Area of improvement
+   </label>
+   <select name="area">
+    {% for a in ['Transport & Roads','Waste & Environment','Parks & Recreation','Safety & Security','Digital Services','Education & Health','Other'] %}
+    <option>
+     {{a}}
+    </option>
+    {% endfor %}
+   </select>
+  </div>
+  <div class="field">
+   <label>
+    Your idea
+   </label>
+   <textarea name="idea" required="" rows="4"></textarea>
+  </div>
+  <label>
+   <input name="anonymous" style="width:auto" type="checkbox"/>
+   Submit anonymously
+  </label>
+  <p>
+   <button class="btn">
+    Send suggestion (+10 points)
+   </button>
+  </p>
+ </form>
+</div>
+<div class="panel">
+ <h2>
+  Your submitted suggestions
+ </h2>
+ {% for s in items %}
+ <article style="padding:12px 0;border-bottom:1px solid #e7ebf0">
+  <h3>
+   {{s.title}}
+  </h3>
+  <span class="pill">
+   {{s.area}}
+  </span>
+  <p>
+   {{s.idea}}
+  </p>
+  <small class="muted">
+   {{s.created_at}}
+  </small>
+ </article>
+ {% else %}
+ <p>
+  No suggestions yet.
+ </p>
+ {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,98 @@
+{% extends "base.html" %}{% block title %}Admin overview &middot; SmartCity{% endblock %}{% block content %}
+<div class="hero-mini">
+ <h1>
+  City administration overview
+ </h1>
+ <p>
+  Monitor community reports, citizen engagement and payment records.
+ </p>
+</div>
+<div class="cards" style="margin-top:16px">
+ <div class="stat">
+  <span>
+   Registered citizens
+  </span>
+  <strong>
+   {{stats.citizens}}
+  </strong>
+ </div>
+ <div class="stat">
+  <span>
+   Total reports
+  </span>
+  <strong>
+   {{stats.issues}}
+  </strong>
+ </div>
+ <div class="stat">
+  <span>
+   Unresolved reports
+  </span>
+  <strong>
+   {{stats.open_issues}}
+  </strong>
+ </div>
+ <div class="stat">
+  <span>
+   Payment records (KES)
+  </span>
+  <strong>
+   {{'%.2f'|format(stats.payments)}}
+  </strong>
+ </div>
+</div>
+<div class="panel">
+ <div class="topline">
+  <h2>
+   Latest issues
+  </h2>
+  <a href="{{url_for('admin_issues')}}">
+   Manage issues &rarr;
+  </a>
+ </div>
+ <div class="table-wrap">
+  <table>
+   <tr>
+    <th>
+     Issue
+    </th>
+    <th>
+     Citizen
+    </th>
+    <th>
+     Priority
+    </th>
+    <th>
+     Status
+    </th>
+   </tr>
+   {% for i in issues %}
+   <tr>
+    <td>
+     {{i.title}}
+     <br/>
+     <span class="muted">
+      {{i.category}} &middot; {{i.location}}
+     </span>
+    </td>
+    <td>
+     {{i.first_name}} {{i.last_name}}
+    </td>
+    <td>
+     {{i.priority}}
+    </td>
+    <td>
+     {{i.status}}
+    </td>
+   </tr>
+   {% else %}
+   <tr>
+    <td colspan="4">
+     No issues have been submitted yet.
+    </td>
+   </tr>
+   {% endfor %}
+  </table>
+ </div>
+</div>
+{% endblock %}

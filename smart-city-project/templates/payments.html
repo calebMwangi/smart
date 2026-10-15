@@ -1,0 +1,110 @@
+{% extends "base.html" %}{% block title %}Payments &middot; SmartCity{% endblock %}{% block content %}
+<div class="panel">
+ <h1>
+  City payments
+ </h1>
+ 
+ <form method="post">
+  <div class="field">
+   <label>
+    Select bill
+   </label>
+   <select name="bill" required="">
+    {% for b in ['Water & Sewerage','Waste Collection','Parking Fee','Land Rates','Business Permit'] %}
+    <option>
+     {{b}}
+    </option>
+    {% endfor %}
+   </select>
+  </div>
+  <div class="field">
+   <label>
+    Amount (KES)
+   </label>
+   <input min="1" name="amount" required="" step="0.01" type="number"/>
+  </div>
+  <div class="field">
+   <label>
+    Payment method
+   </label>
+   <select name="method">
+    <option>
+     M-Pesa
+    </option>
+    <option>
+     Credit / Debit card
+    </option>
+    <option>
+     Bank transfer
+    </option>
+   </select>
+  </div>
+  <div class="field">
+   <label>
+    Phone / account number
+   </label>
+   <input name="phone" placeholder="0712345678" required=""/>
+  </div>
+  <button class="btn">
+   Create payment record
+  </button>
+ </form>
+</div>
+<div class="panel">
+ <h2>
+  Payment history
+ </h2>
+ <div class="table-wrap">
+  <table>
+   <tr>
+    <th>
+     Reference
+    </th>
+    <th>
+     Bill
+    </th>
+    <th>
+     Amount
+    </th>
+    <th>
+     Method
+    </th>
+    <th>
+     Status
+    </th>
+    <th>
+     Date
+    </th>
+   </tr>
+   {% for p in items %}
+   <tr>
+    <td>
+     {{p.reference}}
+    </td>
+    <td>
+     {{p.bill}}
+    </td>
+    <td>
+     KES {{'%.2f'|format(p.amount)}}
+    </td>
+    <td>
+     {{p.method}}
+    </td>
+    <td>
+     {{p.status}}
+    </td>
+    <td>
+     {{p.created_at}}
+    </td>
+   </tr>
+   {% else %}
+   <tr>
+    <td colspan="6">
+     No payment records yet.
+    </td>
+   </tr>
+   {% endfor %}
+  </table>
+ </div>
+</div>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends "base.html" %}{% block title %}Announcements &middot; SmartCity{% endblock %}{% block content %}
+<div class="panel">
+ <h1>
+  City announcements
+ </h1>
+ <p class="muted">
+  Official updates relevant to your ward.
+ </p>
+ {% for a in items %}
+ <article style="padding:15px 0;border-bottom:1px solid #e7ebf0">
+  <span class="pill">
+   {{a.kind}}
+  </span>
+  <h2>
+   {{a.title}}
+  </h2>
+  <p>
+   {{a.body}}
+  </p>
+  <small class="muted">
+   {{a.department}} &middot; {{a.audience}} &middot; {{a.created_at}}
+  </small>
+ </article>
+ {% else %}
+ <p>
+  No announcements yet.
+ </p>
+ {% endfor %}
+</div>
+{% endblock %}

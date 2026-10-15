@@ -1,0 +1,128 @@
+{% extends "base.html" %}{% block title %}Citizen dashboard &middot; SmartCity{% endblock %}{% block content %}
+<section class="hero-mini">
+ <h1>
+  Hey @{{citizen.first_name}} 
+ </h1>
+ <p>
+  Welcome to your neighbourhood portal. Here&rsquo;s what&rsquo;s happening around your city.
+ </p>
+</section>
+<div class="cards" style="margin-top:16px">
+ <div class="stat">
+  <span>
+   Citizen points
+  </span>
+  <strong>
+   {{citizen.points}}
+  </strong>
+ </div>
+ <div class="stat">
+  <span>
+   Issues reported
+  </span>
+  <strong>
+   {{stats.issues}}
+  </strong>
+ </div>
+ <div class="stat">
+  <span>
+   Suggestions sent
+  </span>
+  <strong>
+   {{stats.suggestions}}
+  </strong>
+ </div>
+ <div class="stat">
+  <span>
+   Payment records
+  </span>
+  <strong>
+   {{stats.payments}}
+  </strong>
+ </div>
+</div>
+<div class="panel">
+ <div class="topline">
+  <h2>
+   Your recent reports
+  </h2>
+  <a class="btn-secondary" href="{{url_for('citizen_issues')}}">
+   Report an issue
+  </a>
+ </div>
+ {% if issues %}
+ <div class="table-wrap">
+  <table>
+   <tr>
+    <th>
+     Issue
+    </th>
+    <th>
+     Priority
+    </th>
+    <th>
+     Status
+    </th>
+    <th>
+     Submitted
+    </th>
+   </tr>
+   {% for item in issues %}
+   <tr>
+    <td>
+     {{item.title}}
+     <br/>
+     <span class="muted">
+      {{item.category}} &middot; {{item.location}}
+     </span>
+    </td>
+    <td>
+     {{item.priority}}
+    </td>
+    <td>
+     <span class="pill">
+      {{item.status}}
+     </span>
+    </td>
+    <td>
+     {{item.created_at}}
+    </td>
+   </tr>
+   {% endfor %}
+  </table>
+ </div>
+ {% else %}
+ <p class="muted">
+  No reports yet. If you spot a problem, let the city team know.
+ </p>
+ {% endif %}
+</div>
+<div class="panel">
+ <h2>
+  Latest announcements
+ </h2>
+ {% for a in announcements %}
+ <article style="padding:12px 0;border-bottom:1px solid #e7ebf0">
+  <span class="pill">
+   {{a.kind}}
+  </span>
+  <h3>
+   {{a.title}}
+  </h3>
+  <p>
+   {{a.body}}
+  </p>
+  <small class="muted">
+   {{a.department}} &middot; {{a.created_at}}
+  </small>
+ </article>
+ {% else %}
+ <p class="muted">
+  No announcements have been published for your ward yet.
+ </p>
+ {% endfor %}
+ <a href="{{url_for('citizen_announcements')}}">
+  View all announcements &rarr;
+ </a>
+</div>
+{% endblock %}

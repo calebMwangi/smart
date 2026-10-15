@@ -1,0 +1,96 @@
+{% extends "base.html" %}{% block title %}Announcements &middot; SmartCity Admin{% endblock %}{% block content %}
+<div class="panel">
+ <h1>
+  Publish an announcement
+ </h1>
+ <form method="post">
+  <div class="field">
+   <label>
+    Title
+   </label>
+   <input name="title" required=""/>
+  </div>
+  <div class="form-row">
+   <div class="field">
+    <label>
+     Department
+    </label>
+    <select name="department">
+     {% for d in ['Roads & Transport','Water & Sewerage','Environment','Waste Management','Licensing','General'] %}
+     <option>
+      {{d}}
+     </option>
+     {% endfor %}
+    </select>
+   </div>
+   <div class="field">
+    <label>
+     Type
+    </label>
+    <select name="kind">
+     {% for k in ['Info','Notice','Urgent','Event'] %}
+     <option>
+      {{k}}
+     </option>
+     {% endfor %}
+    </select>
+   </div>
+  </div>
+  <div class="field">
+   <label>
+    Audience
+   </label>
+   <select name="audience">
+    {% for a in ['All citizens','Central Ward','Riverside Ward','Hillview Ward'] %}
+    <option>
+     {{a}}
+    </option>
+    {% endfor %}
+   </select>
+  </div>
+  <div class="field">
+   <label>
+    Announcement details
+   </label>
+   <textarea name="body" required="" rows="4"></textarea>
+  </div>
+  <button class="btn">
+   Publish announcement
+  </button>
+ </form>
+</div>
+<div class="panel">
+ <h2>
+  Published announcements
+ </h2>
+ {% for a in items %}
+ <article style="padding:12px 0;border-bottom:1px solid #e7ebf0">
+  <div class="topline">
+   <div>
+    <span class="pill">
+     {{a.kind}} &middot; {{a.audience}}
+    </span>
+    <h3>
+     {{a.title}}
+    </h3>
+   </div>
+   <form action="{{url_for('delete_announcement',item_id=a.id)}}" method="post" onsubmit="return confirm('Delete this announcement?')">
+    <button class="btn danger">
+     Delete
+    </button>
+   </form>
+  </div>
+  <p>
+   {{a.body}}
+  </p>
+  <small class="muted">
+   {{a.department}} &middot; {{a.created_at}}
+  </small>
+ </article>
+ {% else %}
+ <p>
+  No announcements published yet.
+ </p>
+ {% endfor %}
+</div>
+{% endblock %}

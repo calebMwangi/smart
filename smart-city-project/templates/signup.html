@@ -1,0 +1,73 @@
+{% extends "base.html" %}{% block title %}Create account &middot; SmartCity{% endblock %}{% block content %}
+<div class="panel" style="max-width:650px;margin:30px auto">
+ <h1>
+  Create your citizen account
+ </h1>
+ <p class="muted">
+  Join your community and start improving your neighbourhood.
+ </p>
+ <form method="post">
+  <div class="form-row">
+   <div class="field">
+    <label>
+     First name
+    </label>
+    <input name="first" required=""/>
+   </div>
+   <div class="field">
+    <label>
+     Last name
+    </label>
+    <input name="last" required=""/>
+   </div>
+  </div>
+  <div class="field">
+   <label>
+    Email address
+   </label>
+   <input name="email" required="" type="email"/>
+  </div>
+  <div class="form-row">
+   <div class="field">
+    <label>
+     Phone number
+    </label>
+    <input name="phone" required=""/>
+   </div>
+   <div class="field">
+    <label>
+     National ID
+    </label>
+    <input name="national_id" required=""/>
+   </div>
+  </div>
+  <div class="field">
+   <label>
+    Ward / neighbourhood
+   </label>
+   <select name="ward" required="">
+    <option value="">
+     Choose your ward
+    </option>
+    {% for ward in ['Central Ward','Riverside Ward','Hillview Ward'] %}
+    <option>
+     {{ward}}
+    </option>
+    {% endfor %}
+   </select>
+  </div>
+  <div class="field">
+   <label>
+    Password (at least 8 characters)
+   </label>
+   <input minlength="8" name="password" required="" type="password"/>
+  </div>
+  <button class="btn" type="submit">
+   Create account
+  </button>
+  <a class="btn-secondary" href="{{url_for('login')}}">
+   Back to sign in
+  </a>
+ </form>
+</div>
+{% endblock %}

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width,initial-scale=1" name="viewport"/>
+  <title>
+   {% block title %}SmartCity Portal{% endblock %}
+  </title>
+  <link href="{{ url_for('static',filename='css/style.css') }}" rel="stylesheet"/>
+  <style>
+   .notice{padding:12px 15px;border-radius:10px;margin:10px 0;background:#e8f5e9;color:#17633a}.notice.error{background:#ffebee;color:#a12632}
+.auth-card input,.auth-card select,.panel input,.panel select,.panel textarea{width:100%;padding:12px;border:1px solid #d6dce5;border-radius:8px;font:inherit}
+.panel{background:#fff;border-radius:14px;padding:22px;margin:16px 0;box-shadow:0 4px 18px #12223a0c}.panel h2{margin-top:0}
+.portal{max-width:1180px;margin:0 auto;padding:22px}.navlinks{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0}.navlinks a{padding:9px 13px;border-radius:8px;background:#eef3f9;text-decoration:none;color:#18334f}.navlinks a:hover{background:#dce9f7}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px}.stat{padding:18px;border-radius:12px;background:#f0f6ff}.stat strong{font-size:1.6rem;display:block}.field{margin:12px 0}.field label{display:block;font-weight:600;margin-bottom:6px}.btn{cursor:pointer;border:0}.table-wrap{overflow:auto}table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:12px;border-bottom:1px solid #e7ebf0;vertical-align:top}th{background:#f6f8fb}.muted{color:#6b7280}.topline{display:flex;align-items:center;justify-content:space-between;gap:15px;flex-wrap:wrap}.pill{display:inline-block;padding:4px 8px;border-radius:20px;background:#edf2f7;font-size:.82rem}.hero-mini{padding:25px;border-radius:14px;background:linear-gradient(120deg,#153e75,#168a88);color:white}.hero-mini h1{margin:0 0 8px}.inline-form{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.inline-form select{max-width:180px}.danger{color:#a12632}.btn-secondary{display:inline-block;padding:10px 14px;border-radius:8px;background:#e8eef6;text-decoration:none;color:#193b5c}
+ion-icon{
+   font-size: 40px;
+}
+  </style>
+ </head>
+ <body>
+  <div class="portal">
+   <header class="topline">
+    <a href="{{ url_for('admin_dashboard') if is_admin else (url_for('citizen_dashboard') if current_citizen else url_for('login')) }}" style="font-size:1.3rem;font-weight:800;text-decoration:none;color:inherit">
+      <ion-icon name="earth-outline"></ion-icon> SmartCity
+    </a>
+    <span>
+     {% if current_citizen %}{{ current_citizen.first_name }} {{ current_citizen.last_name }} &middot; {{ current_citizen.points }} points{% elif is_admin %}Administrator{% else %}A smarter city starts with you{% endif %}
+    </span>
+   </header>
+   {% if current_citizen %}
+   <nav class="navlinks">
+    <a href="{{url_for('citizen_dashboard')}}">
+     Dashboard
+    </a>
+    <a href="{{url_for('citizen_announcements')}}">
+     Announcements
+    </a>
+    <a href="{{url_for('citizen_issues')}}">
+     Report an issue
+    </a>
+    <a href="{{url_for('citizen_suggestions')}}">
+     Suggestions
+    </a>
+    <a href="{{url_for('citizen_payments')}}">
+     Payments
+    </a>
+    <a href="{{url_for('citizen_waste')}}">
+     Waste management
+    </a>
+    <a href="{{url_for('logout')}}">
+     Log out
+    </a>
+   </nav>
+   {% elif is_admin %}
+   <nav class="navlinks">
+    <a href="{{url_for('admin_dashboard')}}">
+     Overview
+    </a>
+    <a href="{{url_for('admin_citizens')}}">
+     Citizens
+    </a>
+    <a href="{{url_for('admin_announcements')}}">
+     Announcements
+    </a>
+    <a href="{{url_for('admin_issues')}}">
+     Reported issues
+    </a>
+    <a href="{{url_for('admin_payments')}}">
+     Payments
+    </a>
+    <a href="{{url_for('logout')}}">
+     Log out
+    </a>
+   </nav>
+   {% endif %}
+{% with messages=get_flashed_messages(with_categories=true) %}{% for category,message in messages %}
+   <div class="notice {{'error' if category=='error' else ''}}">
+    {{message}}
+   </div>
+   {% endfor %}{% endwith %}
+{% block content %}{% endblock %}
+   <footer style="padding:25px 0;text-align:center;color:#718096">
+    &copy; 2026 SmartCity Portal &middot; Built for better neighbourhoods
+   </footer>
+  </div>
+
+  <script type="module" src="https://unpkg.com/ionicons@8.0.13/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@8.0.13/dist/ionicons/ionicons.js"></script>
+ </body>
+</html>

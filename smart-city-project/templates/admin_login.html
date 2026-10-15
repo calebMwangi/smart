@@ -1,0 +1,31 @@
+{% extends "base.html" %}{% block title %}Admin sign in &middot; SmartCity{% endblock %}{% block content %}
+<div class="panel" style="max-width:520px;margin:40px auto">
+ <h1>
+  Administrator sign in
+ </h1>
+ <p class="muted">
+  Authorised city staff only.
+ </p>
+ <form method="post">
+  <div class="field">
+   <label>
+    Email
+   </label>
+   <input name="email" required="" type="email" value="admin@smartcity.gov"/>
+  </div>
+  <div class="field">
+   <label>
+    Password
+   </label>
+   <input name="password" required="" type="password"/>
+  </div>
+  <button class="btn" type="submit">
+   Sign in
+  </button>
+ </form>
+ 
+ <a href="{{url_for('login')}}">
+  Citizen login
+ </a>
+</div>
+{% endblock %}

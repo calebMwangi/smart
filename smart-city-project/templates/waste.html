@@ -1,0 +1,42 @@
+{% extends "base.html" %}{% block title %}Waste management &middot; SmartCity{% endblock %}{% block content %}
+<div class="hero-mini">
+ <h1>
+  Cleaner streets start with us 
+ </h1>
+ <p>
+  Use these practical steps to help keep your neighbourhood clean.
+ </p>
+</div>
+<div class="cards" style="margin-top:16px">
+ <div class="panel">
+  <h2>
+    Sort waste
+  </h2>
+  <p>
+   Separate recyclables, organic waste and general rubbish where collection services support it.
+  </p>
+ </div>
+ <div class="panel">
+  <h2>
+    Plan collection
+  </h2>
+  <p>
+   Follow official announcements for collection schedules and service interruptions.
+  </p>
+  <a href="{{url_for('citizen_announcements')}}">
+   See announcements
+  </a>
+ </div>
+ <div class="panel">
+  <h2>
+    Report illegal dumping
+  </h2>
+  <p>
+   Help the relevant team find overflowing bins and illegal dumping sites.
+  </p>
+  <a href="{{url_for('citizen_issues')}}">
+   Report a waste issue
+  </a>
+ </div>
+</div>
+{% endblock %}
